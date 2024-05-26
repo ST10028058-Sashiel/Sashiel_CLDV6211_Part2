@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Sashiel_CLDV6211_Part2.Models.Products>
+
+@{
+    ViewData["Title"] = "MyWork";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Work - KhumaloCraft</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="MyWork-container">
+        <div class="marketing-section">
+            <h3 class="marketing-heading">Discover the Artistry of KhumaloCraft</h3>
+            <p class="marketing-text">Welcome to our "My Work" page, where creativity and craftsmanship converge to bring you a world of exquisite handcrafted treasures. At KhumaloCraft, we pride ourselves on the passion and dedication poured into every creation, each telling a unique story of tradition, culture, and artistry.</p>
+        </div>
+        <div class="marketing-section">
+            <h3 class="marketing-heading">Explore Timeless Creations</h3>
+            <p class="marketing-text">Step into our gallery and immerse yourself in a diverse collection of artisanal wonders. From intricately carved wooden sculptures to vibrant woven textiles, our work reflects the rich cultural heritage and skilled craftsmanship of our community. Each piece is meticulously crafted, blending traditional techniques with contemporary designs to offer you a truly unique experience.</p>
+        </div>
+        <div class="marketing-section">
+            <h3 class="marketing-heading">Celebrate Authenticity and Quality</h3>
+            <p class="marketing-text">At KhumaloCraft, quality is our hallmark. We source the finest materials and collaborate with local artisans to ensure the highest standards of craftsmanship in every creation. Whether you're searching for a statement piece for your home or a meaningful gift for a loved one, our work embodies authenticity, quality, and the spirit of creativity.</p>
+        </div>
+        <div class="marketing-section">
+            <h3 class="marketing-heading">Experience the KhumaloCraft Difference</h3>
+            <p class="marketing-text">Join us on a journey of discovery as you explore the artistry and ingenuity behind KhumaloCraft. Our work is more than just objects; it's a celebration of culture, a testament to heritage, and a reflection of the human spirit. Experience the KhumaloCraft difference and bring home a piece of art that speaks to your soul.</p>
+        </div>
+        <div class="marketing-section">
+            <h3 class="marketing-heading">Shop Now and Embrace the Extraordinary</h3>
+            <p class="marketing-text">Ready to experience the beauty of handmade treasures? Visit our "My Work" page and browse our curated collection of artisanal creations. Shop with confidence, knowing that each purchase supports local artisans and preserves traditional craftsmanship for generations to come. Embrace the extraordinary with KhumaloCraft today.</p>
+        </div>
+    </div>
+
+    <div class="product-container">
+        <div class="product-row">
+            @foreach (var products in Model)
+            {
+                <div class="product-card">
+                    <img src="@products.ImagePath" alt="@products.Product_Name">
+                    <div class="product-info">
+                        <h3>@products.Product_Name</h3>
+                        <p>@products.Product_Description</p>
+                        <p class="big-bold-text">Price: @products.Product_Price ZAR</p>
+                        <p>Quantity: @products.Quantity</p>
+                        <p>Availability: @(products.Availability ? "Available" : "Sold Out")</p>
+                        <form asp-action="AddToCart" method="post">
+                            <input type="hidden" name="productId" value="@products.Product_ID" />
+                            <button type="submit" class="btn btn-primary" @(products.Quantity == 0 ? "disabled" : "")>Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+﻿@model IEnumerable<Sashiel_CLDV6211_Part2.Models.CartOrders>
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart - KhumaloCraft</title>
+    <link rel="stylesheet" href="~/css/site.css">
+    <style>
+        /* Center container */
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Table container styles */
+        .cart-table-container {
+            max-width: 800px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background */
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            border-radius: 15px;
+            overflow: hidden; /* Ensure overflow content is hidden */
+        }
+
+        /* Table styles */
+        .cart-table {
+            width: 100%; /* Full width for the table */
+            border-collapse: collapse;
+            text-align: left;
+            margin-bottom: 20px; /* Add margin bottom for spacing */
+        }
+
+            .cart-table th,
+            .cart-table td {
+                padding: 10px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* White border */
+                color: #333;
+            }
+
+            /* Table header styles */
+            .cart-table th {
+                background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white background for headers */
+            }
+
+            /* Table row styles */
+            .cart-table tbody tr:hover {
+                background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background on hover */
+            }
+
+        /* Remove button styles */
+        .remove-button {
+            background-color: #ff3333; /* Red background color */
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px; /* Add margin right for spacing */
+        }
+
+            .remove-button:hover {
+                background-color: #cc0000; /* Darker red background color on hover */
+            }
+
+        /* Total row styles */
+        .total-row {
+            font-weight: bold;
+            text-align: right;
+        }
+
+        /* Pay button styles */
+        .pay-button {
+            background-color: #4CAF50; /* Green background color */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+            .pay-button:hover {
+                background-color: #45a049; /* Darker green background color on hover */
+            }
+
+        /* Empty cart message styles */
+        .empty-cart {
+            text-align: center;
+            font-size: 1.5em;
+            color: #333;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-container">
+        <div class="cart-table-container">
+            @if (!Model.Any())
+            {
+                <div class="empty-cart">
+                    Your cart is empty.
+                </div>
+            }
+            else
+            {
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <th>Price (ZAR)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Product.Product_Name</td>
+                                <td>@item.Product.Product_Description</td>
+                                <td>@item.Product.Product_Price</td>
+                                <td>
+                                    <form asp-action="RemoveFromCart" method="post" style="display:inline-block;">
+                                        <input type="hidden" name="cartOrderId" value="@item.Cart_ID" />
+                                        <button type="submit" class="remove-button">Remove</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <div class="total-row">
+                    <span>Total: @Model.Sum(item => item.Product.Product_Price) ZAR</span>
+                </div>
+                <form asp-action="Pay" method="post" style="text-align: center;">
+                    <button type="submit" class="pay-button">Pay Now</button>
+                </form>
+            }
+        </div>
+    </div>
+</body>
+</html>

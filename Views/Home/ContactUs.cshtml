@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewData["Title"] = "ContactUs";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - KhumaloCraft</title>
+    <style>
+        /* Reset styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Global styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #262b28;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .contact-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.7); /* Frosted glass effect */
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .contact-form h2 {
+                font-size: 2.5em;
+                margin-bottom: 20px;
+            }
+
+            .contact-form p {
+                font-size: 1.1em;
+                margin-bottom: 20px;
+            }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+            button:hover {
+                background-color: #0056b3;
+            }
+
+        .phone-section {
+            background-color: rgba(255, 255, 255, 0.7); /* Frosted glass effect */
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px); /* Apply blur effect */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom:10px;
+        }
+
+            .phone-section h2 {
+                font-size: 2em;
+                margin-bottom: 20px;
+            }
+
+        .phone-number {
+            font-size: 1.5em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-form">
+                <h2>Contact Us</h2>
+                <p>Have a question or need assistance? Fill out the form below and we'll get back to you as soon as possible.</p>
+                <form>
+                    <div class="form-group">
+                        <label for="name">Your Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="phone-section">
+        <div class="container">
+            <h2>Call Us</h2>
+            <p>For immediate assistance, you can reach us at:</p>
+            <p class="phone-number">123-456-7890</p>
+        </div>
+    </section>
+</body>
+</html>
+

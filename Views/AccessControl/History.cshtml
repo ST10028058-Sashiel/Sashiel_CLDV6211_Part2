@@ -1,0 +1,34 @@
+﻿@model List<Sashiel_CLDV6211_Part2.Models.SalesStatement>
+
+@{
+    ViewData["Title"] = "History";
+}
+
+<h2>Purchase History</h2>
+
+@if (Model.Count == 0)
+{
+    <p>No purchase history available.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Purchase Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Product?.Product_Name</td>
+                    <td>@item.Purchase_Date.ToShortDateString()</td>
+                    <td>@item.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

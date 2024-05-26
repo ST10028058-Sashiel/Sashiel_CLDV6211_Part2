@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Sashiel_CLDV6211_Part2.Models.SalesStatement>
+
+@{
+    ViewData["Title"] = "Admin Order Management";
+}
+
+<h2>Admin Order Management</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Product Name</th>
+            <th>Purchase Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.User.UserName</td>
+                <td>@item.Product.Product_Name</td>
+                <td>@item.Purchase_Date</td>
+                <td>@item.Status</td>
+                <td>
+                    @if (item.Status == "Pending")
+                    {
+                        <form asp-action="ApproveTransaction" method="post">
+                            <input type="hidden" name="statementId" value="@item.Statement_ID" />
+                            <button type="submit">Approve</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
