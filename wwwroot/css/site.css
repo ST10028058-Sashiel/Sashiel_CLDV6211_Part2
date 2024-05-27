@@ -20,3 +20,43 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.product-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Adjust minimum width as needed */
+    gap: 20px; /* Add spacing between product cards */
+    padding: 0 20px; /* Adjust padding to fit into the page */
+}
+
+.product-card {
+    width: 100%; /* Take up full width of grid cell */
+    max-width: 400px; /* Set maximum width for each card */
+    height: auto; /* Allow height to adjust based on content */
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+    .product-card img {
+        width: 100%;
+        height: 300px; /* Set a fixed height for all images */
+        object-fit: cover; /* Ensure images cover the entire space */
+        display: block;
+    }
+
+.product-info {
+    padding: 20px;
+    flex-grow: 1; /* Allow product info to expand vertically */
+}
+
+    .product-info h3 {
+        margin-top: 0;
+    }
+
+    .product-info p {
+        color: #333;
+        margin: 0; /* Reset default margins for paragraphs */
+    }

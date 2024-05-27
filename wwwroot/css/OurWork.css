@@ -1,0 +1,5 @@
+﻿article img, article.featured img {
+    width: 100%;
+    border: 4px solid #fff;
+    border-radius: 8px;
+}

@@ -1,0 +1,73 @@
+﻿@import url('about.css');
+body {
+    background-color: black;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+    opacity: 1.8;
+    color: white;
+    line-height: 1.5;
+    text-align: center;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+h1, h2, h3 {
+    margin: 0;
+    padding: 1em 0;
+    font-family: Georgia;
+    font-size: 20px;
+}
+
+p {
+    margin: 0;
+    padding: 1em 0;
+    font-size:20px;
+}
+
+.btn {
+    display: inline-block;
+    background: black;
+    color: black;
+    text-decoration: none;
+    padding: 120px;
+    border: 1px solid #666;
+    margin: .5em 0;
+    border-radius: 14px;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+    .btn:hover {
+        background-color: crimson;
+        color: red;
+        border: 3px solid white;
+    }
+
+
+.btn1 {
+    display: inline-block;
+    background: black;
+    color: white;
+    text-decoration: none;
+    font-family: monospace;
+    border: 1px solid black;
+    margin: .5em 400px;
+    font-size:20px;
+    padding: 20px 60px;
+    border-radius: 14px;
+    font-weight: bold;
+}
+
+    .btn1:hover {
+        background-color: darkcyan;
+        color: #fff;
+        border: 3px solid black;
+    }
+
+/*header showcase*/

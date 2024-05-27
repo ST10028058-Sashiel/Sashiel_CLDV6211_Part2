@@ -29,7 +29,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand text-light" asp-area="" asp-controller="Home" asp-action="Index">Khumalo Craft</a>
+                <a class="navbar-brand text-dark" asp-area="" asp-controller="Home" asp-action="Index">KhumaloCraft</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -37,16 +37,16 @@
                 <div class="navbar-collapse bg-primary collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Products" asp-action="MyWork">Products</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="MyWork">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
                         </li>
 
                         @if (User.Identity.IsAuthenticated)
@@ -54,30 +54,30 @@
                             if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="AccessControl" asp-action="Roles">Role Assignment</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="Roles">Role Assignment</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Index">Product listings</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Product listings</a>
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Products" asp-action="Cart">Cart</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Cart">Cart</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="AccessControl" asp-action="AdminHistory">Admin Management</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="AdminHistory">Admin Management</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="AccessControl" asp-action="History">Purchases</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="History">Purchases</a>
                                 </li>
                             }
                             else
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="Products" asp-action="Cart">Cart</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Cart">Cart</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" asp-area="" asp-controller="AccessControl" asp-action="History">Purchases</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="History">Purchases</a>
                                 </li>
                             }
                         }
@@ -92,11 +92,12 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="border-top footer bg-primary text-white py-3 mt-4">
+    <footer class="border-top footer bg-primary text-dark py-3 mt-4">
         <div class="container text-center">
             <span>&copy; 2024 - KhumaloCraft</span>
         </div>
     </footer>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

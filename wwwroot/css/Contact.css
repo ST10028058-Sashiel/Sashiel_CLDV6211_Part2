@@ -1,0 +1,86 @@
+﻿.container {
+    max-width: 500px;
+    margin: auto auto;
+  
+    padding: 20px;
+    border-radius: 8px;
+}
+
+label {
+    font-size:2opx;
+    font-family: Constantia;
+    font-style: normal;
+    font-weight: bold;
+    color:black;
+}
+
+h3 {
+    font-size: 30px;
+    padding-top: 60px;
+}
+
+p {
+    font-size: 40px;
+}
+
+h2 {
+    margin-top: auto auto;
+    font-size: 38px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 18px 0;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+input[type="submit"] {
+    background-color: black;
+    color: white;
+    font-size: 30px;
+    font-family: Georgia;
+    padding: 14px 20px;
+    margin: 12px -10px;
+    border: inherit;
+    border-radius: 64px;
+    cursor: cell;
+    width: 100%;
+    font-weight: bold;
+}
+
+    input[type="submit"]:hover {
+        background-color: white;
+        font-weight: bold;
+        color: black;
+    }
+
+.contact-information {
+    margin-top: 20px auto;
+    border-top: 1px solid #ccc;
+    padding-top: 0px;
+    font-weight: bold;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+
+
+html {
+    font-size: 17px;
+    position: relative;
+    min-height: 100%;
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+@media (min-width: 768px) {
+}

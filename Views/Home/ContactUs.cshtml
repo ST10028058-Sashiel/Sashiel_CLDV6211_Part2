@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "ContactUs";
 }
-
+<link rel="stylesheet" href="~/css/Contact.css" asp-append-version="true" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +12,36 @@
     
 </head>
 <body>
-    
+    ﻿
+
+
+   
+
+    <div class="container">
+        <h2>Contact Us</h2>
+        <form action="#" method="post">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="surname">Surname</label>
+            <input type="text" id="surname" name="Surname" required>
+
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
+
+            <input type="submit" value="Submit">
+        </form>
+        <div class="contact-information">
+            <h3>Contact Information</h3>
+            <p>Email Address: KhamuloCrafts@gmail.com</p>
+            <p>Phone Number: +++089 673 1234 </p>
+
+
+        </div>
+    </div>
 </body>
 </html>
 
