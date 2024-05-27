@@ -7,11 +7,14 @@ using Sashiel_CLDV6211_Part2.Areas.Identity.Data;
 using Sashiel_CLDV6211_Part2.Models;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace Sashiel_CLDV6211_Part2.Controllers
 {
     public class ProductsController : Controller
     {
         private readonly IdentityContext _context;
+
+        Products newProducts = new Products();
 
         public ProductsController(IdentityContext context)
         {
@@ -21,9 +24,20 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         // GET: Products
         public IActionResult MyWork()
         {
-            var products = _context.Products.ToList();
-            return View(products);
+            try
+            {
+                List<Products> products = _context.Products.ToList();
+                Console.WriteLine("Number of products retrieved: " + products.Count); // Add this line for debugging
+                return View(products);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return View();
+            }
         }
+
+
 
         // GET: Products/Cart
         [Authorize]

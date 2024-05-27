@@ -39,25 +39,33 @@
 
     <div class="product-container">
         <div class="product-row">
-            @foreach (var products in Model)
+            @if (Model != null && Model.Any())
             {
-                <div class="product-card">
-                    <img src="@products.ImagePath" alt="@products.Product_Name">
-                    <div class="product-info">
-                        <h3>@products.Product_Name</h3>
-                        <p>@products.Product_Description</p>
-                        <p class="big-bold-text">Price: @products.Product_Price ZAR</p>
-                        <p>Quantity: @products.Quantity</p>
-                        <p>Availability: @(products.Availability ? "Available" : "Sold Out")</p>
-                        <form asp-action="AddToCart" method="post">
-                            <input type="hidden" name="productId" value="@products.Product_ID" />
-                            <button type="submit" class="btn btn-primary" @(products.Quantity == 0 ? "disabled" : "")>Add to Cart</button>
-                        </form>
+                @foreach (var products in Model)
+                {
+                    <div class="product-card">
+                        <img src="@products.ImagePath" alt="@products.Product_Name">
+                        <div class="product-info">
+                            <h3>@products.Product_Name</h3>
+                            <p>@products.Product_Description</p>
+                            <p class="big-bold-text">Price: @products.Product_Price ZAR</p>
+                            <p>Quantity: @products.Quantity</p>
+                            <p>Availability: @(products.Availability ? "Available" : "Sold Out")</p>
+                            <form asp-action="AddToCart" method="post">
+                                <input type="hidden" name="productId" value="@products.Product_ID" />
+                                <button type="submit" class="btn btn-primary" @(products.Quantity == 0 ? "disabled" : "")>Add to Cart</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                }
+            }
+            else
+            {
+                <p>No products available.</p>
             }
         </div>
     </div>
+
 
 </body>
 </html>

@@ -47,15 +47,16 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="ContactUs">Contact Us</a>
-                        </li>
+						</li>
+						
 
                         @if (User.Identity.IsAuthenticated)
                         {
                             if (User.IsInRole("Admin"))
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="Roles">Role Assignment</a>
-                                </li>
+                              <li class="nav-item">
+							    <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="Roles">Role Assignment</a>
+						        </li>
 
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Product listings</a>
