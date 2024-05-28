@@ -12,7 +12,7 @@ namespace Sashiel_CLDV6211_Part2
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            
             builder.Services.AddDbContext<IdentityContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityContextConnection' not found.")));
 
@@ -27,7 +27,7 @@ namespace Sashiel_CLDV6211_Part2
             builder.Services.AddRazorPages();
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+           
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -39,7 +39,7 @@ namespace Sashiel_CLDV6211_Part2
 
             app.UseRouting();
 
-            app.UseAuthentication(); // Add this line to enable authentication
+            app.UseAuthentication(); 
             app.UseAuthorization();
 
             app.MapControllerRoute(
