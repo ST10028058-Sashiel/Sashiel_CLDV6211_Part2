@@ -43,9 +43,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return RedirectToAction("Roles");
         }
 
-        // Transaction Management Actions
-
-        // Admin view for managing all user purchases and approving pending orders
+       
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AdminHistory()
         {
@@ -56,7 +54,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(salesStatements);
         }
 
-        // Regular user view for their purchase history
+      
         [Authorize]
         public async Task<IActionResult> History()
         {
@@ -68,7 +66,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(salesStatements);
         }
 
-        // Approve a pending transaction
+       
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> ApproveTransaction(int statementId)

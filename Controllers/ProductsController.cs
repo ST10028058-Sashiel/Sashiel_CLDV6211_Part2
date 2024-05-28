@@ -21,7 +21,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             _context = context;
         }
 
-        // GET: Products
+        
         public IActionResult MyWork()
         {
             try
@@ -39,7 +39,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
 
 
 
-        // GET: Products/Cart
+      
         [Authorize]
         public IActionResult Cart()
         {
@@ -51,7 +51,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(cartItems);
         }
 
-        // POST: Products/AddToCart
+      
         [HttpPost]
         [Authorize]
         public IActionResult AddToCart(int productId)
@@ -92,7 +92,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return RedirectToAction(nameof(Cart));
         }
 
-        // POST: Products/RemoveFromCart
+      
         [HttpPost]
         [Authorize]
         public IActionResult RemoveFromCart(int cartOrderId)
@@ -120,7 +120,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return RedirectToAction(nameof(Cart));
         }
 
-        // POST: Products/Pay
+    
         [HttpPost]
         [Authorize]
         public IActionResult Pay()
@@ -147,12 +147,12 @@ namespace Sashiel_CLDV6211_Part2.Controllers
 
             _context.SaveChanges();
 
-            // Assuming you have a confirmation message instead of redirecting to History
+            
             TempData["OrderPlacedMessage"] = "Payment pending. Order placed successfully.";
             return RedirectToAction(nameof(Cart));
         }
 
-        // GET: Products/History
+ 
         [Authorize]
         public IActionResult History()
         {

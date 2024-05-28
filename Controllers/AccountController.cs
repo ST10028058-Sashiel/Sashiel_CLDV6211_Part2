@@ -15,14 +15,14 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             _context = context;
         }
 
-        // GET: Account
+ 
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Products.ToListAsync());
         }
 
-        // GET: Account/Details/5
+    
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -41,14 +41,14 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(products);
         }
 
-        // GET: Account/Create
+  
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Account/Create
+    
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -64,7 +64,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(products);
         }
 
-        // GET: Account/Edit/5
+    
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -81,7 +81,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(products);
         }
 
-        // POST: Account/Edit/5
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -116,7 +116,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(products);
         }
 
-        // GET: Account/Delete/5
+
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -135,7 +135,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(products);
         }
 
-        // POST: Account/Delete/5
+     
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]

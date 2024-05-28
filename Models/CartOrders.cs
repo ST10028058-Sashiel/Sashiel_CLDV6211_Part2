@@ -12,13 +12,13 @@ namespace Sashiel_CLDV6211_Part2.Models
 
         [Required]
         [ForeignKey("Product")]
-        public int Product_ID { get; set; } // Check this foreign key attribute
+        public int Product_ID { get; set; } /
 
         [Required]
         [ForeignKey("AspNetUsers")]
         public string UserId { get; set; }
 
-        public virtual Products Product { get; set; } // Check this navigation property
+        public virtual Products Product { get; set; } 
         public virtual ApplicationUser User { get; set; }
     }
 }
