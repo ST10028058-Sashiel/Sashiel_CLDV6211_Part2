@@ -50,38 +50,49 @@
 						</li>
 						
 
-                        @if (User.Identity.IsAuthenticated)
+                        @if (User.Identity.IsAuthenticated) // Check if the user is authenticated
                         {
-                            if (User.IsInRole("Admin"))
+                            if (User.IsInRole("Admin")) // Check if the authenticated user is in the "Admin" role
                             {
-                              <li class="nav-item">
-							    <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="Roles">Role Assignment</a>
-						        </li>
-
+                                // Navigation link for creating roles, visible only to Admin users
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Product listings</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="Roles">Creating Roles</a>
                                 </li>
 
+                                // Navigation link for the products list, visible only to Admin users
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Products List</a>
+                                </li>
+
+                                // Navigation link for the cart, visible only to Admin users
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Cart">Cart</a>
                                 </li>
+
+                                // Navigation link for admin management, visible only to Admin users
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="AdminHistory">Admin Management</a>
                                 </li>
+
+                                // Navigation link for purchase history, visible only to Admin users
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="History">Purchases</a>
                                 </li>
                             }
-                            else
+                            else // If the user is authenticated but not in the "Admin" role
                             {
+                                // Navigation link for the cart, visible to all authenticated users who are not Admins
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Cart">Cart</a>
                                 </li>
+
+                                // Navigation link for purchase history, visible to all authenticated users who are not Admins
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="AccessControl" asp-action="History">Purchases</a>
                                 </li>
                             }
                         }
+
                     </ul>
                 </div>
                 <partial name="_LoginPartial" />
