@@ -9,73 +9,95 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Sashiel_CLDV6211_Part2.Controllers
 {
+    // The AccessControlController handles role management and access to sales statements.
+    // It uses ASP.NET Core Identity for role management and Entity Framework Core for data access.
     public class AccessControlController : Controller
     {
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IdentityContext _context;
+        // Private fields to hold the RoleManager and IdentityContext instances.
+        private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IdentityContext identityContext;
 
+        // Constructor to inject the RoleManager and IdentityContext instances via dependency injection.
         public AccessControlController(RoleManager<IdentityRole> roleManager, IdentityContext context)
         {
-            _roleManager = roleManager;
-            _context = context;
+            this.roleManager = roleManager;
+            identityContext = context;
         }
 
-        // Role Management Actions
+        // GET: /AccessControl/Roles
+        // This action returns a view displaying a list of roles.
         public IActionResult Roles()
         {
-            var roles = _roleManager.Roles;
+            // Fetch all roles from the RoleManager.
+            var roles = roleManager.Roles;
             return View(roles);
         }
 
+        // GET: /AccessControl/RoleCreate
+        // This action returns a view for creating a new role.
         [HttpGet]
         public IActionResult RoleCreate()
         {
             return View();
         }
 
+        // POST: /AccessControl/RoleCreate
+        // This action handles the POST request to create a new role.
         [HttpPost]
         public async Task<IActionResult> RoleCreate(IdentityRole model)
         {
-            if (!await _roleManager.RoleExistsAsync(model.Name))
+            // Check if the role does not already exist, then create it.
+            if (!await roleManager.RoleExistsAsync(model.Name))
             {
-                await _roleManager.CreateAsync(new IdentityRole(model.Name));
+                await roleManager.CreateAsync(new IdentityRole(model.Name));
             }
             return RedirectToAction("Roles");
         }
 
-       
+        // GET: /AccessControl/AdminHistory
+        // This action returns a view displaying sales statements for the admin.
+        // Only accessible to users in the "Admin" role.
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AdminHistory()
         {
-            var salesStatements = await _context.SalesStatement
+            // Fetch all sales statements from the database, including related product and user data.
+            var salesStatements = await identityContext.SalesStatement
                                                 .Include(s => s.Product)
                                                 .Include(s => s.User)
                                                 .ToListAsync();
             return View(salesStatements);
         }
 
-      
+        // GET: /AccessControl/History
+        // This action returns a view displaying the sales history of the current user.
+        // Only accessible to authenticated users.
         [Authorize]
         public async Task<IActionResult> History()
         {
+            // Get the current user's ID.
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            var salesStatements = await _context.SalesStatement
+            // Fetch the sales statements for the current user, including related product data.
+            var salesStatements = await identityContext.SalesStatement
                                                 .Where(s => s.UserId == userId)
                                                 .Include(s => s.Product)
                                                 .ToListAsync();
             return View(salesStatements);
         }
 
-       
+        // POST: /AccessControl/ApproveTransaction
+        // This action handles the POST request to approve a transaction.
+        // Only accessible to users in the "Admin" role.
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> ApproveTransaction(int statementId)
         {
-            var salesStatement = await _context.SalesStatement.FindAsync(statementId);
+            // Find the sales statement with the specified ID.
+            var salesStatement = await identityContext.SalesStatement.FindAsync(statementId);
             if (salesStatement != null)
             {
+                // Set the status of the sales statement to "Approved" and save changes.
                 salesStatement.Status = "Approved";
-                await _context.SaveChangesAsync();
+                await identityContext.SaveChangesAsync();
             }
 
             return RedirectToAction(nameof(AdminHistory));

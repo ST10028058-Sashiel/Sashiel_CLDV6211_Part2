@@ -12,7 +12,7 @@ namespace Sashiel_CLDV6211_Part2.Models
 
         [Required]
         [ForeignKey("Product")]
-        public int Product_ID { get; set; } /
+        public int Product_ID { get; set; } 
 
         [Required]
         [ForeignKey("AspNetUsers")]

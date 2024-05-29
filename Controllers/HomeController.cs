@@ -4,42 +4,44 @@ using System.Diagnostics;
 
 namespace Sashiel_CLDV6211_Part2.Controllers
 {
-	public class HomeController : Controller
-	{
-		private readonly ILogger<HomeController> _logger;
+ 
+    public class HomeController : Controller
+    {
+        
+        private readonly ILogger<HomeController> _logger;
 
-		public HomeController(ILogger<HomeController> logger)
-		{
-			_logger = logger;
-		}
-
-		public IActionResult Index()
-		{
-			return View();
-		}
-
-		public IActionResult Privacy()
-		{
-			return View();
-		}
-
-		public IActionResult ContactUs() 
-		{
-		
-			return View();
-		}
-
-        public IActionResult AboutUs()
+      
+        public HomeController(ILogger<HomeController> logger)
         {
+            _logger = logger;
+        }
 
+        // GET: /Home/Index
+        // This action returns the main homepage view.
+        public IActionResult Index()
+        {
             return View();
         }
 
+        // GET: /Home/Privacy
+        // This action returns the privacy policy view.
+        public IActionResult Privacy()
+        {
+            return View();
+        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error()
-		{
-			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-		}
-	}
+        // GET: /Home/ContactUs
+        // This action returns the contact us view.
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+
+        // GET: /Home/AboutUs
+        // This action returns the about us view.
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+    }
 }

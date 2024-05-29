@@ -6,23 +6,32 @@ using Sashiel_CLDV6211_Part2.Areas.Identity.Data;
 
 namespace Sashiel_CLDV6211_Part2.Controllers
 {
+    // The AccountController handles operations related to accounts and products.
+    // It uses ASP.NET Core Identity for authorization and Entity Framework Core for data access.
     public class AccountController : Controller
     {
-        private readonly IdentityContext _context;
+        // Private field to hold the IdentityContext instance for database operations.
+        private readonly IdentityContext identityContext;
 
+        // Constructor to inject the IdentityContext instance via dependency injection.
         public AccountController(IdentityContext context)
         {
-            _context = context;
+            identityContext = context;
         }
 
- 
+        // GET: /Account/Index
+        // This action returns a view displaying a list of products.
+        // Only accessible to users in the "Admin" role.
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            // Fetch all products from the database asynchronously.
+            return View(await identityContext.Products.ToListAsync());
         }
 
-    
+        // GET: /Account/Details/{id}
+        // This action returns a view displaying details of a specific product by its ID.
+        // Only accessible to users in the "Admin" role.
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
@@ -31,7 +40,8 @@ namespace Sashiel_CLDV6211_Part2.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products
+            // Fetch the product with the specified ID from the database.
+            var products = await identityContext.Products
                 .FirstOrDefaultAsync(m => m.Product_ID == id);
             if (products == null)
             {
@@ -41,14 +51,18 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(products);
         }
 
-  
+        // GET: /Account/Create
+        // This action returns a view for creating a new product.
+        // Only accessible to users in the "Admin" role.
         [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-    
+        // POST: /Account/Create
+        // This action handles the POST request to create a new product.
+        // Only accessible to users in the "Admin" role.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -56,15 +70,19 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Set the availability of the product based on its quantity.
                 products.Availability = products.Quantity > 0;
-                _context.Add(products);
-                await _context.SaveChangesAsync();
+                // Add the new product to the context and save changes asynchronously.
+                identityContext.Add(products);
+                await identityContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(products);
         }
 
-    
+        // GET: /Account/Edit/{id}
+        // This action returns a view for editing an existing product by its ID.
+        // Only accessible to users in the "Admin" role.
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -73,7 +91,8 @@ namespace Sashiel_CLDV6211_Part2.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products.FindAsync(id);
+            // Fetch the product with the specified ID from the database.
+            var products = await identityContext.Products.FindAsync(id);
             if (products == null)
             {
                 return NotFound();
@@ -81,7 +100,9 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(products);
         }
 
-        
+        // POST: /Account/Edit/{id}
+        // This action handles the POST request to update an existing product.
+        // Only accessible to users in the "Admin" role.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
@@ -96,9 +117,11 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             {
                 try
                 {
+                    // Update the availability of the product based on its quantity.
                     products.Availability = products.Quantity > 0;
-                    _context.Update(products);
-                    await _context.SaveChangesAsync();
+                    // Update the product in the context and save changes asynchronously.
+                    identityContext.Update(products);
+                    await identityContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -116,7 +139,9 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(products);
         }
 
-
+        // GET: /Account/Delete/{id}
+        // This action returns a view for deleting an existing product by its ID.
+        // Only accessible to users in the "Admin" role.
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
@@ -125,7 +150,8 @@ namespace Sashiel_CLDV6211_Part2.Controllers
                 return NotFound();
             }
 
-            var products = await _context.Products
+            // Fetch the product with the specified ID from the database.
+            var products = await identityContext.Products
                 .FirstOrDefaultAsync(m => m.Product_ID == id);
             if (products == null)
             {
@@ -135,25 +161,30 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             return View(products);
         }
 
-     
+        // POST: /Account/Delete/{id}
+        // This action handles the POST request to confirm the deletion of a product.
+        // Only accessible to users in the "Admin" role.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var products = await _context.Products.FindAsync(id);
+            // Find the product with the specified ID and remove it from the context.
+            var products = await identityContext.Products.FindAsync(id);
             if (products != null)
             {
-                _context.Products.Remove(products);
+                identityContext.Products.Remove(products);
             }
 
-            await _context.SaveChangesAsync();
+            // Save changes asynchronously.
+            await identityContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
+        // Helper method to check if a product with a specified ID exists.
         private bool ProductsExists(int id)
         {
-            return _context.Products.Any(e => e.Product_ID == id);
+            return identityContext.Products.Any(e => e.Product_ID == id);
         }
     }
 }
