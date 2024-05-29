@@ -2,19 +2,18 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Sashiel_CLDV6211_Part2.Areas.Identity.Data;
 using Sashiel_CLDV6211_Part2.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace Sashiel_CLDV6211_Part2.Controllers
 {
     public class ProductsController : Controller
     {
-       
         private readonly IdentityContext identityContext;
-
-  
         Products newProducts = new Products();
 
         // Constructor to inject the IdentityContext instance via dependency injection.
@@ -49,12 +48,12 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public IActionResult Cart()
         {
             // Get the current user's ID.
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             // Fetch the cart items for the current user, including related product data.
-            var cartItems = identityContext.CartOrders
-                                           .Include(c => c.Product)
-                                           .Where(c => c.UserId == userId)
-                                           .ToList();
+            List<CartOrders> cartItems = identityContext.CartOrders
+                                                        .Include(c => c.Product)
+                                                        .Where(c => c.UserId == userId)
+                                                        .ToList();
             return View(cartItems);
         }
 
@@ -66,7 +65,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public IActionResult AddToCart(int productId)
         {
             // Find the product with the specified ID.
-            var product = identityContext.Products.FirstOrDefault(p => p.Product_ID == productId);
+            Products product = identityContext.Products.FirstOrDefault(p => p.Product_ID == productId);
             if (product == null)
             {
                 return NotFound();
@@ -80,9 +79,9 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             }
 
             // Get the current user's ID.
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             // Create a new cart order for the product.
-            var cartOrder = new CartOrders
+            CartOrders cartOrder = new CartOrders
             {
                 Product_ID = productId,
                 UserId = userId
@@ -116,7 +115,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public IActionResult RemoveFromCart(int cartOrderId)
         {
             // Find the cart order with the specified ID, including related product data.
-            var cartOrder = identityContext.CartOrders.Include(c => c.Product).FirstOrDefault(c => c.Cart_ID == cartOrderId);
+            CartOrders cartOrder = identityContext.CartOrders.Include(c => c.Product).FirstOrDefault(c => c.Cart_ID == cartOrderId);
             if (cartOrder == null)
             {
                 return NotFound();
@@ -150,17 +149,17 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public IActionResult Pay()
         {
             // Get the current user's ID.
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             // Fetch the cart items for the current user, including related product data.
-            var cartItems = identityContext.CartOrders
-                                           .Include(c => c.Product)
-                                           .Where(c => c.UserId == userId)
-                                           .ToList();
+            List<CartOrders> cartItems = identityContext.CartOrders
+                                                        .Include(c => c.Product)
+                                                        .Where(c => c.UserId == userId)
+                                                        .ToList();
 
             // Create a sales statement for each item in the cart and remove the item from the cart.
-            foreach (var item in cartItems)
+            foreach (CartOrders item in cartItems)
             {
-                var salesStatement = new SalesStatement
+                SalesStatement salesStatement = new SalesStatement
                 {
                     Product_ID = item.Product_ID,
                     UserId = userId,
@@ -187,12 +186,12 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public IActionResult History()
         {
             // Get the current user's ID.
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             // Fetch the sales statements for the current user, including related product data.
-            var transactions = identityContext.SalesStatement
-                                              .Where(s => s.UserId == userId)
-                                              .Include(s => s.Product)
-                                              .ToList();
+            List<SalesStatement> transactions = identityContext.SalesStatement
+                                                               .Where(s => s.UserId == userId)
+                                                               .Include(s => s.Product)
+                                                               .ToList();
             return View("AccessControl/History", transactions);
         }
     }

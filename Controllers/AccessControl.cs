@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Sashiel_CLDV6211_Part2.Areas.Identity.Data;
@@ -29,7 +30,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public IActionResult Roles()
         {
             // Fetch all roles from the RoleManager.
-            var roles = roleManager.Roles;
+            List<IdentityRole> roles = roleManager.Roles.ToList();
             return View(roles);
         }
 
@@ -61,7 +62,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public async Task<IActionResult> AdminHistory()
         {
             // Fetch all sales statements from the database, including related product and user data.
-            var salesStatements = await identityContext.SalesStatement
+            List<SalesStatement> salesStatements = await identityContext.SalesStatement
                                                 .Include(s => s.Product)
                                                 .Include(s => s.User)
                                                 .ToListAsync();
@@ -77,7 +78,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             // Get the current user's ID.
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             // Fetch the sales statements for the current user, including related product data.
-            var salesStatements = await identityContext.SalesStatement
+            List<SalesStatement> salesStatements = await identityContext.SalesStatement
                                                 .Where(s => s.UserId == userId)
                                                 .Include(s => s.Product)
                                                 .ToListAsync();
@@ -92,7 +93,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public async Task<IActionResult> ApproveTransaction(int statementId)
         {
             // Find the sales statement with the specified ID.
-            var salesStatement = await identityContext.SalesStatement.FindAsync(statementId);
+            SalesStatement salesStatement = await identityContext.SalesStatement.FindAsync(statementId);
             if (salesStatement != null)
             {
                 // Set the status of the sales statement to "Approved" and save changes.

@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sashiel_CLDV6211_Part2.Models;
 using Sashiel_CLDV6211_Part2.Areas.Identity.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sashiel_CLDV6211_Part2.Controllers
 {
@@ -26,7 +29,8 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public async Task<IActionResult> Index()
         {
             // Fetch all products from the database asynchronously.
-            return View(await identityContext.Products.ToListAsync());
+            List<Products> products = await identityContext.Products.ToListAsync();
+            return View(products);
         }
 
         // GET: /Account/Details/{id}
@@ -41,14 +45,14 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             }
 
             // Fetch the product with the specified ID from the database.
-            var products = await identityContext.Products
+            Products product = await identityContext.Products
                 .FirstOrDefaultAsync(m => m.Product_ID == id);
-            if (products == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(product);
         }
 
         // GET: /Account/Create
@@ -92,12 +96,12 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             }
 
             // Fetch the product with the specified ID from the database.
-            var products = await identityContext.Products.FindAsync(id);
-            if (products == null)
+            Products product = await identityContext.Products.FindAsync(id);
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(products);
+            return View(product);
         }
 
         // POST: /Account/Edit/{id}
@@ -151,14 +155,14 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             }
 
             // Fetch the product with the specified ID from the database.
-            var products = await identityContext.Products
+            Products product = await identityContext.Products
                 .FirstOrDefaultAsync(m => m.Product_ID == id);
-            if (products == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            return View(products);
+            return View(product);
         }
 
         // POST: /Account/Delete/{id}
@@ -170,10 +174,10 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             // Find the product with the specified ID and remove it from the context.
-            var products = await identityContext.Products.FindAsync(id);
-            if (products != null)
+            Products product = await identityContext.Products.FindAsync(id);
+            if (product != null)
             {
-                identityContext.Products.Remove(products);
+                identityContext.Products.Remove(product);
             }
 
             // Save changes asynchronously.
