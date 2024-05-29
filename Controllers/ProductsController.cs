@@ -74,7 +74,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             // Check if the product is available.
             if (product.Quantity <= 0)
             {
-                TempData["ErrorMessage"] = "Product is not available.";
+                TempData["ErrorMessage"] = "Product not Availble";
                 return RedirectToAction(nameof(MyWork));
             }
 
@@ -130,7 +130,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             {
                 // Save changes to the database.
                 identityContext.SaveChanges();
-                TempData["SuccessMessage"] = "Product removed from cart successfully.";
+                TempData["SuccessMessage"] = "Product removed successfully.";
             }
             catch (Exception ex)
             {
@@ -159,7 +159,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             // Create a sales statement for each item in the cart and remove the item from the cart.
             foreach (CartOrders item in cartItems)
             {
-                SalesStatement salesStatement = new SalesStatement
+                ProductStatement salesStatement = new ProductStatement
                 {
                     Product_ID = item.Product_ID,
                     UserId = userId,
@@ -167,7 +167,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
                     Status = "Pending"
                 };
 
-                identityContext.SalesStatement.Add(salesStatement);
+                identityContext.ProductStatement.Add(salesStatement);
                 identityContext.CartOrders.Remove(item);
             }
 
@@ -188,7 +188,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             // Get the current user's ID.
             string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             // Fetch the sales statements for the current user, including related product data.
-            List<SalesStatement> transactions = identityContext.SalesStatement
+            List<ProductStatement> transactions = identityContext.ProductStatement
                                                                .Where(s => s.UserId == userId)
                                                                .Include(s => s.Product)
                                                                .ToList();

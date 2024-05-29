@@ -62,7 +62,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public async Task<IActionResult> AdminHistory()
         {
             // Fetch all sales statements from the database, including related product and user data.
-            List<SalesStatement> salesStatements = await identityContext.SalesStatement
+            List<ProductStatement> salesStatements = await identityContext.ProductStatement
                                                 .Include(s => s.Product)
                                                 .Include(s => s.User)
                                                 .ToListAsync();
@@ -78,7 +78,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
             // Get the current user's ID.
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             // Fetch the sales statements for the current user, including related product data.
-            List<SalesStatement> salesStatements = await identityContext.SalesStatement
+            List<ProductStatement> salesStatements = await identityContext.ProductStatement
                                                 .Where(s => s.UserId == userId)
                                                 .Include(s => s.Product)
                                                 .ToListAsync();
@@ -93,7 +93,7 @@ namespace Sashiel_CLDV6211_Part2.Controllers
         public async Task<IActionResult> ApproveTransaction(int statementId)
         {
             // Find the sales statement with the specified ID.
-            SalesStatement salesStatement = await identityContext.SalesStatement.FindAsync(statementId);
+            ProductStatement salesStatement = await identityContext.ProductStatement.FindAsync(statementId);
             if (salesStatement != null)
             {
                 // Set the status of the sales statement to "Approved" and save changes.

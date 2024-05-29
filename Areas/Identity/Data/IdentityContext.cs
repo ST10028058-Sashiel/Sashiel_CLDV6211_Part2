@@ -38,7 +38,7 @@ namespace Sashiel_CLDV6211_Part2.Areas.Identity.Data
 
         // A DbSet for the SalesStatement entity. This represents sales statements.
         // Each entry in this DbSet corresponds to a record in the SalesStatement table in the database.
-        public DbSet<SalesStatement> SalesStatement { get; set; }
+        public DbSet<ProductStatement> ProductStatement { get; set; }
 
         // A DbSet for the CartOrders entity. This represents shopping cart orders.
         // Each entry in this DbSet corresponds to a record in the CartOrders table in the database.

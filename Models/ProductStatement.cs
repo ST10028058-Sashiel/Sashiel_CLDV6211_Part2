@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Sashiel_CLDV6211_Part2.Models
 {
-    public class SalesStatement
+    public class ProductStatement
     {
         [Key]
         public int Statement_ID { get; set; }
